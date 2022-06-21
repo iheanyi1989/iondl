@@ -109,7 +109,7 @@ resource "aws_dms_replication_instance" "test" {
 
 
   vpc_security_group_ids = [
-    "sg-12345678",
+    resource.aws_default_security_group.default.id
   ]
 
   depends_on = [
