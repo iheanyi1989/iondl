@@ -12,7 +12,6 @@ data "aws_subnets" "selected_subnets" {
     name   = "vpc-id"
     values = [resource.aws_default_vpc.default_vpc_data.id]
   }
-  
 }
 
 resource "aws_default_security_group" "default" {
@@ -98,7 +97,6 @@ resource "aws_dms_replication_instance" "test" {
   apply_immediately            = true
   auto_minor_version_upgrade   = true
   availability_zone            = "us-west-2c"
-  engine_version               = "3.1.4"
   kms_key_arn                  = aws_kms_key.key_for_dl_buckets.arn
   multi_az                     = false
   preferred_maintenance_window = "sun:10:30-sun:14:30"
