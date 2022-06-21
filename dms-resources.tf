@@ -96,7 +96,6 @@ resource "aws_dms_replication_instance" "test" {
   allocated_storage            = 20
   apply_immediately            = true
   auto_minor_version_upgrade   = true
-  availability_zone            = "us-west-2c"
   kms_key_arn                  = aws_kms_key.key_for_dl_buckets.arn
   multi_az                     = false
   preferred_maintenance_window = "sun:10:30-sun:14:30"
