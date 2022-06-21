@@ -32,7 +32,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3-bucket-encrypt
   }
 }
 
-resource "aws_s3_object" "raw_bucket_object" {
+resource "aws_s3_bucket_object" "raw_bucket_object" {
   bucket   = aws_s3_bucket.lf-user-buckets[1].id
   for_each = toset(["input/", "output/", "athena/"])
   key      = each.key
