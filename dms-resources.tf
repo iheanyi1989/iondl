@@ -37,10 +37,6 @@ resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_description = "Test replication subnet group"
   replication_subnet_group_id          = "test-dms-replication-subnet-group-tf"
   subnet_ids                           = data.aws_subnets.selected_subnets.ids
-
-  tags = {
-    Name = "test"
-  }
 }
 
 # Database Migration Service requires the below IAM Roles to be created before
@@ -121,7 +117,7 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
 
 resource "aws_dms_endpoint" "source_endpoint_one" {
   endpoint_id = "salesaudit-db"
-  # database_name = #Name of the endpoint database #Required
+  database_name = "ion-lf-source"
   endpoint_type = "source"
   engine_name   = "sqlserver"
   #kms_key_arn =  #used to encrypt connection parameters
