@@ -67,6 +67,11 @@ resource "aws_iam_role_policy_attachment" "dms-access-for-endpoint-AmazonDMSReds
   role       = aws_iam_role.dms-access-for-endpoint.name
 }
 
+resource "aws_iam_role_policy_attachment" "dms-access-for-endpoint-SecretsManager" {
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+  role       = aws_iam_role.dms-access-for-endpoint.name
+}
+
 resource "aws_iam_role" "dms-cloudwatch-logs-role" {
   assume_role_policy = data.aws_iam_policy_document.dms_assume_role.json
   name               = "dms-cloudwatch-logs-role"
