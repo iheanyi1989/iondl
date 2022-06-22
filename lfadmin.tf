@@ -29,5 +29,5 @@ resource "aws_iam_role" "role_for_dl" {
   name               = "instance_role"
   assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy.json
   force_detach_policies = true
-  managed_policy_arns = [ "arn:aws:iam::aws:policy/SecretsManagerReadWrite" ]
+  managed_policy_arns = [ "arn:aws:iam::aws:policy/SecretsManagerReadWrite", "arn:aws:iam::aws:policy/AmazonS3FullAccess" ]
 }

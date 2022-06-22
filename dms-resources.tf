@@ -119,15 +119,35 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   ]
 }
 
-resource "aws_dms_endpoint" "source_endpoint_one" {
-    endpoint_id = "sales-audit"
+# resource "aws_dms_endpoint" "source_endpoint_one" {
+#     endpoint_id = "sales-audit"
+#     endpoint_type = "source"
+#     engine_name = "sqlserver"
+#     kms_key_arn =  used to encrypt connection parameters
+#     server_name =
+#     secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+#     secrets_manager_arn = 
+
+# }
+
+resource "aws_dms_endpoint" "target_endpoint_one" {
+    endpoint_id = "s3-target-endpoint"
     endpoint_type = "source"
-    engine_name = "sqlserver"
-    #kms_key_arn =  used to encrypt connection parameters
+    engine_name = "s3"
+    kms_key_arn =  resource.aws_kms_key.key_for_dl_buckets.arn
+    s3_settings {
+      service_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+      add_column_name = "true"
+      bucket_folder = from-dms
+      bucket_name = aws_s3_bucket.lf-user-buckets[1].id
+      cdc_inserts_and_updates = "true"
+      data_format = "parquet"
+      encryption_mode = "SSE_KMS"
+      server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
+
+    }
     # server_name =
     # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
     # secrets_manager_arn = 
 
-
-  
 }
