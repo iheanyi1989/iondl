@@ -132,16 +132,18 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
 
 resource "aws_dms_endpoint" "target_endpoint_one" {
     endpoint_id = "s3-target-endpoint"
-    endpoint_type = "source"
+    endpoint_type = "target"
     engine_name = "s3"
     kms_key_arn =  resource.aws_kms_key.key_for_dl_buckets.arn
     s3_settings {
       service_access_role_arn = resource.aws_iam_role.role_for_dl.arn
-      add_column_name = "true"
+      # add_column_name = true
       bucket_folder = "from-dms"
       bucket_name = aws_s3_bucket.lf-user-buckets[1].id
-      cdc_inserts_and_updates = "true"
+      # cdc_inserts_and_updates = true
+      # include_op_for_full_load = true
       data_format = "parquet"
+      date_partition_enabled = true
       encryption_mode = "SSE_KMS"
       server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
 
