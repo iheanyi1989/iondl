@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "instance-assume-role-policy" {
 
     principals {
       type        = "Service"
-      identifiers = ["dms.amazonaws.com"]
+      identifiers = ["dms.amazonaws.com", "dms.us-east-1.amazonaws.com"]
     }
   }
 }
