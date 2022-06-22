@@ -116,14 +116,14 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
 }
 
 resource "aws_dms_endpoint" "source_endpoint_one" {
-  endpoint_id = "salesaudit-db"
+  endpoint_id   = "salesaudit-db"
   database_name = "ion-lf-source"
   endpoint_type = "source"
   engine_name   = "sqlserver"
   #kms_key_arn =  #used to encrypt connection parameters
   # server_name                     = "ion-lf-source.c0vcobptagy3.us-east-1.rds.amazonaws.com"
   secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
-  secrets_manager_arn             = "sourceone"
+  secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceone-NEa3XM"
   # username = #Required if not in Secrets Manager
   # password = #Required if not in Secrets Manager
   # tags = #Map of tags to assign to the resource. #Optional
@@ -135,7 +135,7 @@ resource "aws_dms_endpoint" "target_endpoint_one" {
   endpoint_type = "target"
   engine_name   = "s3"
   kms_key_arn   = resource.aws_kms_key.key_for_dl_buckets.arn
-  s3_settings  {
+  s3_settings {
     service_access_role_arn           = resource.aws_iam_role.role_for_dl.arn
     add_column_name                   = true
     bucket_folder                     = "from-dms"
