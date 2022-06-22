@@ -6,7 +6,7 @@ resource "aws_default_vpc" "default_vpc_data" {
     Name = "Default VPC"
   }
 }
- 
+
 data "aws_subnets" "selected_subnets" {
   filter {
     name   = "vpc-id"
@@ -36,7 +36,7 @@ resource "aws_default_security_group" "default" {
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_description = "Test replication subnet group"
   replication_subnet_group_id          = "test-dms-replication-subnet-group-tf"
-  subnet_ids = data.aws_subnets.selected_subnets.ids
+  subnet_ids                           = data.aws_subnets.selected_subnets.ids
 
   tags = {
     Name = "test"
@@ -119,37 +119,40 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   ]
 }
 
-# resource "aws_dms_endpoint" "source_endpoint_one" {
-#     endpoint_id = "sales-audit"
-#     endpoint_type = "source"
-#     engine_name = "sqlserver"
-#     kms_key_arn =  used to encrypt connection parameters
-#     server_name =
-#     secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
-#     secrets_manager_arn = 
+resource "aws_dms_endpoint" "source_endpoint_one" {
+  endpoint_id = "salesaudit-db"
+  # database_name = #Name of the endpoint database #Required
+  endpoint_type = "source"
+  engine_name   = "sqlserver"
+  #kms_key_arn =  #used to encrypt connection parameters
+  # server_name                     = "ion-lf-source.c0vcobptagy3.us-east-1.rds.amazonaws.com"
+  secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+  secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceone-NEa3XM"
+  # username = #Required if not in Secrets Manager
+  # password = #Required if not in Secrets Manager
+  # tags = #Map of tags to assign to the resource. #Optional
 
-# }
+}
 
 resource "aws_dms_endpoint" "target_endpoint_one" {
-    endpoint_id = "s3-target-endpoint"
-    endpoint_type = "target"
-    engine_name = "s3"
-    kms_key_arn =  resource.aws_kms_key.key_for_dl_buckets.arn
-    s3_settings {
-      service_access_role_arn = resource.aws_iam_role.role_for_dl.arn
-      # add_column_name = true
-      bucket_folder = "from-dms"
-      bucket_name = aws_s3_bucket.lf-user-buckets[1].id
-      # cdc_inserts_and_updates = true
-      # include_op_for_full_load = true
-      data_format = "parquet"
-      date_partition_enabled = true
-      encryption_mode = "SSE_KMS"
-      server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
+  endpoint_id   = "s3-target-endpoint"
+  endpoint_type = "target"
+  engine_name   = "s3"
+  kms_key_arn   = resource.aws_kms_key.key_for_dl_buckets.arn
+  s3_settings  {
+    service_access_role_arn           = resource.aws_iam_role.role_for_dl.arn
+    add_column_name                   = true
+    bucket_folder                     = "from-dms"
+    bucket_name                       = aws_s3_bucket.lf-user-buckets[1].id
+    cdc_inserts_and_updates           = true
+    data_format                       = "parquet"
+    date_partition_enabled            = true
+    encryption_mode                   = "SSE_KMS"
+    server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
 
-    }
-    # server_name =
-    # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
-    # secrets_manager_arn = 
+  }
+  # server_name =
+  # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+  # secrets_manager_arn = 
 
 }

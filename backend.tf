@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 4.19"
     }
   }
   cloud {
@@ -14,17 +14,17 @@ terraform {
   }
 }
 
-  provider "aws" {
-    region = "us-east-1"
-    default_tags {
-      tags = {
-Environment = "Dev"
-createdby = "Iheanyi"
+provider "aws" {
+  region = "us-east-1"
+  default_tags {
+    tags = {
+      Environment = "Dev"
+      createdby   = "Iheanyi"
 
 
-      }
     }
   }
+}
 
 
 

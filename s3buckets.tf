@@ -6,7 +6,7 @@ resource "aws_s3_bucket_versioning" "S3_versioning" {
   count  = length(var.s3_bucket_names) //count will be 3
   bucket = var.s3_bucket_names[count.index]
   versioning_configuration {
-    status = "Enabled" #"Disabled"
+    status = "Disabled"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "s3-bucket-encrypt
   }
 }
 
-resource "aws_s3_bucket_object" "raw_bucket_object" {
+resource "aws_s3_object" "raw_bucket_object" {
   bucket   = aws_s3_bucket.lf-user-buckets[1].id
   for_each = toset(["input/", "output/", "athena/"])
   key      = each.key
@@ -40,8 +40,8 @@ resource "aws_s3_bucket_object" "raw_bucket_object" {
 }
 
 resource "aws_lakeformation_resource" "add-buckets-to-resource" {
-  count = length(var.s3_bucket_names)
-  arn   = aws_s3_bucket.lf-user-buckets[count.index].arn
+  count    = length(var.s3_bucket_names)
+  arn      = aws_s3_bucket.lf-user-buckets[count.index].arn
   role_arn = aws_iam_role.s3-service-role.arn
 }
 
