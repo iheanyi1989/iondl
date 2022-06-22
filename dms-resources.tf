@@ -1,43 +1,43 @@
 ##NCREATE NEW VPC OR RETRIEVE VPC DETAILS FROM CLIENT
 ###RESOURCE BELOW USES ACCOUNTS DEFAULT VPC
 
-resource "aws_default_vpc" "default_vpc_data" {
-  tags = {
-    Name = "Default VPC"
-  }
-}
+# resource "aws_default_vpc" "default_vpc_data" {
+#   tags = {
+#     Name = "Default VPC"
+#   }
+# }
 
-data "aws_subnets" "selected_subnets" {
-  filter {
-    name   = "vpc-id"
-    values = [resource.aws_default_vpc.default_vpc_data.id]
-  }
-}
+# data "aws_subnets" "selected_subnets" {
+#   filter {
+#     name   = "vpc-id"
+#     values = [resource.aws_default_vpc.default_vpc_data.id]
+#   }
+# }
 
-resource "aws_default_security_group" "default" {
-  vpc_id = aws_default_vpc.default_vpc_data.id
+# resource "aws_default_security_group" "default" {
+#   vpc_id = aws_default_vpc.default_vpc_data.id
 
-  ingress {
-    protocol  = -1
-    self      = true
-    from_port = 0
-    to_port   = 0
-  }
+#   ingress {
+#     protocol  = -1
+#     self      = true
+#     from_port = 0
+#     to_port   = 0
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
 
 # Create a new replication subnet group
-resource "aws_dms_replication_subnet_group" "test" {
-  replication_subnet_group_description = "Test replication subnet group"
-  replication_subnet_group_id          = "test-dms-replication-subnet-group-tf"
-  subnet_ids                           = data.aws_subnets.selected_subnets.ids
-}
+# resource "aws_dms_replication_subnet_group" "test" {
+#   replication_subnet_group_description = "Test replication subnet group"
+#   replication_subnet_group_id          = "test-dms-replication-subnet-group-tf"
+#   subnet_ids                           = data.aws_subnets.selected_subnets.ids
+# }
 
 # Database Migration Service requires the below IAM Roles to be created before
 # replication instances can be created. See the DMS Documentation for
@@ -97,15 +97,9 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   preferred_maintenance_window = "sun:10:30-sun:14:30"
   replication_instance_class   = "dms.t2.micro"
   replication_instance_id      = "test-dms-replication-instance-tf"
-  replication_subnet_group_id  = aws_dms_replication_subnet_group.test.id
-
-  tags = {
-    Name = "test"
-  }
-
-
+  # replication_subnet_group_id  = aws_dms_replication_subnet_group.test.id
   vpc_security_group_ids = [
-    resource.aws_default_security_group.default.id
+    "sg-03d2a180f1afe4a3e" #resource.aws_default_security_group.default.id
   ]
 
   depends_on = [
