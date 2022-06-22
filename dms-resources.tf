@@ -92,7 +92,7 @@ resource "aws_iam_role_policy_attachment" "dms-vpc-role-AmazonDMSVPCManagementRo
 }
 
 # Create a new replication instance
-resource "aws_dms_replication_instance" "test" {
+resource "aws_dms_replication_instance" "datalake_replication_instance" {
   allocated_storage            = 20
   apply_immediately            = true
   auto_minor_version_upgrade   = true
@@ -117,4 +117,17 @@ resource "aws_dms_replication_instance" "test" {
     aws_iam_role_policy_attachment.dms-cloudwatch-logs-role-AmazonDMSCloudWatchLogsRole,
     aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole
   ]
+}
+
+resource "aws_dms_endpoint" "source_endpoint_one" {
+    endpoint_id = "sales-audit"
+    endpoint_type = "source"
+    engine_name = "sqlserver"
+    #kms_key_arn =  used to encrypt connection parameters
+    # server_name =
+    # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+    # secrets_manager_arn = 
+
+
+  
 }
