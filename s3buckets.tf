@@ -6,7 +6,7 @@ resource "aws_s3_bucket_versioning" "S3_versioning" {
   count  = length(var.s3_bucket_names) //count will be 3
   bucket = var.s3_bucket_names[count.index]
   versioning_configuration {
-    status = "Enabled"
+    status = "Enabled" #"Disabled"
   }
 }
 
@@ -38,12 +38,6 @@ resource "aws_s3_bucket_object" "raw_bucket_object" {
   key      = each.key
 
 }
-
-# data "aws_s3_bucket" "lf-user-buckets-data" {
-#   count  = length(var.s3_bucket_names) //count will be 3
-#   bucket = var.s3_bucket_names[count.index]
-#   depends_on = [aws_s3_bucket.lf-user-buckets]
-# }
 
 resource "aws_lakeformation_resource" "add-buckets-to-resource" {
   count = length(var.s3_bucket_names)

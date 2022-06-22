@@ -138,7 +138,7 @@ resource "aws_dms_endpoint" "target_endpoint_one" {
     s3_settings {
       service_access_role_arn = resource.aws_iam_role.role_for_dl.arn
       add_column_name = "true"
-      bucket_folder = from-dms
+      bucket_folder = "from-dms"
       bucket_name = aws_s3_bucket.lf-user-buckets[1].id
       cdc_inserts_and_updates = "true"
       data_format = "parquet"
