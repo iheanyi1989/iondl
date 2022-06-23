@@ -49,11 +49,12 @@ resource "aws_dms_endpoint" "source_endpoint_one" {
 #     server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
 #   }
   
+
+# }
+
   # server_name =
   # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
   # secrets_manager_arn = 
-
-}
 
 
 
