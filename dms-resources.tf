@@ -139,7 +139,7 @@ resource "aws_dms_endpoint" "source_endpoint_one" {
   #kms_key_arn =  #used to encrypt connection parameters
   # server_name                     = "ion-lf-source.c0vcobptagy3.us-east-1.rds.amazonaws.com"
   secrets_manager_access_role_arn = "arn:aws:iam::384206995652:role/dms-role"
-  secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceone-NEa3XM"
+  secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceoneone-i6Dv6V"
   # username = #Required if not in Secrets Manager
   # password = #Required if not in Secrets Manager
   # tags = #Map of tags to assign to the resource. #Optional
