@@ -32,22 +32,22 @@ resource "aws_dms_endpoint" "source_endpoint_one" {
   # tags = #Map of tags to assign to the resource. #Optional
 }
 
-resource "aws_dms_endpoint" "target_endpoint_one" {
-  endpoint_id   = "s3-target-endpoint"
-  endpoint_type = "target"
-  engine_name   = "s3"
-  kms_key_arn   = resource.aws_kms_key.key_for_dl_buckets.arn
-  s3_settings {
-    service_access_role_arn           = resource.aws_iam_role.datalake-role.arn
-    add_column_name                   = true
-    bucket_folder                     = "from-dms"
-    bucket_name                       = aws_s3_bucket.lf-user-buckets[1].id
-    cdc_inserts_and_updates           = true
-    data_format                       = "parquet"
-    date_partition_enabled            = true
-    encryption_mode                   = "SSE_KMS"
-    server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
-  }
+# resource "aws_dms_endpoint" "target_endpoint_one" {
+#   endpoint_id   = "s3-target-endpoint"
+#   endpoint_type = "target"
+#   engine_name   = "s3"
+#   kms_key_arn   = resource.aws_kms_key.key_for_dl_buckets.arn
+#   s3_settings {
+#     service_access_role_arn           = resource.aws_iam_role.datalake-role.arn
+#     add_column_name                   = true
+#     bucket_folder                     = "from-dms"
+#     bucket_name                       = aws_s3_bucket.lf-user-buckets[1].id
+#     cdc_inserts_and_updates           = true
+#     data_format                       = "parquet"
+#     date_partition_enabled            = true
+#     encryption_mode                   = "SSE_KMS"
+#     server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
+#   }
   
   # server_name =
   # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
