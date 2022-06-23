@@ -112,7 +112,7 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   allocated_storage            = 20
   apply_immediately            = true
   auto_minor_version_upgrade   = true
-  kms_key_arn                  = "arn:aws:kms:us-east-1:384206995652:key/51a5dff5-c4be-4a76-9154-61eac98283f8"
+  #kms_key_arn                  = "arn:aws:kms:us-east-1:384206995652:key/51a5dff5-c4be-4a76-9154-61eac98283f8"
   multi_az                     = false
   preferred_maintenance_window = "sun:10:30-sun:14:30"
   replication_instance_class   = "dms.t2.micro"
