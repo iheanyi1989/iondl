@@ -14,7 +14,7 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   ]
 
   depends_on = [
-   resource.aws_iam_role.dms-access-role
+   resource.aws_iam_role.dms-vpc-role
   ]
 }
 
@@ -25,7 +25,7 @@ resource "aws_dms_endpoint" "source_endpoint_one" {
   engine_name   = "sqlserver"
   #kms_key_arn =  #used to encrypt connection parameters
   # server_name                     = "ion-lf-source.c0vcobptagy3.us-east-1.rds.amazonaws.com"
-  secrets_manager_access_role_arn = resource.aws_iam_role.dms-access-role.arn
+  secrets_manager_access_role_arn = resource.aws_iam_role.dms-vpc-role.arn
   secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceoneone-i6Dv6V"
   # username = #Required if not in Secrets Manager
   # password = #Required if not in Secrets Manager
@@ -48,7 +48,7 @@ resource "aws_dms_endpoint" "target_endpoint_one" {
     encryption_mode                   = "SSE_KMS"
     server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
   }
-  
+
   # server_name =
   # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
   # secrets_manager_arn = 
