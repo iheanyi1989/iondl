@@ -112,14 +112,14 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   allocated_storage            = 20
   apply_immediately            = true
   auto_minor_version_upgrade   = true
-  kms_key_arn                  = aws_kms_key.key_for_dl_buckets.arn
+  kms_key_arn                  = "arn:aws:kms:us-east-1:384206995652:key/51a5dff5-c4be-4a76-9154-61eac98283f8"
   multi_az                     = false
   preferred_maintenance_window = "sun:10:30-sun:14:30"
   replication_instance_class   = "dms.t2.micro"
   replication_instance_id      = "test-dms-replication-instance-tf"
   # replication_subnet_group_id  = aws_dms_replication_subnet_group.test.id
   vpc_security_group_ids = [
-    "sg-03d2a180f1afe4a3e" #resource.aws_default_security_group.default.id
+    "sg-03593f5fac91fa272" #resource.aws_default_security_group.default.id
   ]
 
   depends_on = [
@@ -138,7 +138,7 @@ resource "aws_dms_endpoint" "source_endpoint_one" {
   engine_name   = "sqlserver"
   #kms_key_arn =  #used to encrypt connection parameters
   # server_name                     = "ion-lf-source.c0vcobptagy3.us-east-1.rds.amazonaws.com"
-  secrets_manager_access_role_arn = resource.aws_iam_role.dms-access-for-SecretsManager.arn
+  secrets_manager_access_role_arn = "arn:aws:iam::384206995652:role/dms-role"
   secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceone-NEa3XM"
   # username = #Required if not in Secrets Manager
   # password = #Required if not in Secrets Manager
