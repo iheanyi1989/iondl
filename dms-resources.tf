@@ -67,9 +67,24 @@ resource "aws_iam_role_policy_attachment" "dms-access-for-endpoint-AmazonDMSReds
   role       = aws_iam_role.dms-access-for-endpoint.name
 }
 
-resource "aws_iam_role_policy_attachment" "dms-access-for-endpoint-SecretsManager" {
+
+resource "aws_iam_role" "dms-access-for-SecretsManager" {
+  assume_role_policy = data.aws_iam_policy_document.dms_assume_role.json
+  name               = "dms-access-for-SecretsManager"
+}
+resource "aws_iam_role_policy_attachment" "dms-access-for-SecretsManagerAttachment" {
   policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
-  role       = aws_iam_role.dms-access-for-endpoint.name
+  role       = aws_iam_role.dms-access-for-SecretsManager.name
+}
+
+resource "aws_iam_role" "dms-access-for-KMS" {
+  assume_role_policy = data.aws_iam_policy_document.dms_assume_role.json
+  name               = "dms-access-for-KMS"
+}
+
+resource "aws_iam_role_policy_attachment" "dms-access-for-KMSAttachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser"
+  role       = aws_iam_role.dms-access-for-KMS.name
 }
 
 resource "aws_iam_role" "dms-cloudwatch-logs-role" {
@@ -110,18 +125,20 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   depends_on = [
     aws_iam_role_policy_attachment.dms-access-for-endpoint-AmazonDMSRedshiftS3Role,
     aws_iam_role_policy_attachment.dms-cloudwatch-logs-role-AmazonDMSCloudWatchLogsRole,
-    aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole
+    aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole,
+    aws_iam_role_policy_attachment.dms-access-for-KMSAttachment,
+    aws_iam_role_policy_attachment.dms-access-for-SecretsManagerAttachment
   ]
 }
 
 resource "aws_dms_endpoint" "source_endpoint_one" {
   endpoint_id   = "salesaudit-db"
-  database_name = "ion-lf-source"
+  database_name = "rdsadmin"
   endpoint_type = "source"
   engine_name   = "sqlserver"
   #kms_key_arn =  #used to encrypt connection parameters
   # server_name                     = "ion-lf-source.c0vcobptagy3.us-east-1.rds.amazonaws.com"
-  secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+  secrets_manager_access_role_arn = resource.aws_iam_role.dms-access-for-SecretsManager.arn
   secrets_manager_arn             = "arn:aws:secretsmanager:us-east-1:384206995652:secret:sourceone-NEa3XM"
   # username = #Required if not in Secrets Manager
   # password = #Required if not in Secrets Manager
