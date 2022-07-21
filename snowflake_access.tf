@@ -45,7 +45,7 @@ resource "aws_iam_role" "snowflake_role" {
         "Action" : "sts:AssumeRole",
         "Condition" : {
           "StringEquals" : {
-            "sts:ExternalId" : "RCB87966_SFCRole=2_Gi1AvzKi4sOQhXwRzy5gTy3MZac="
+            "sts:ExternalId" : "RCB87966_SFCRole=2_+igucspLCnl4abyUTR+7gpbbDY8="
           }
         }
       }
