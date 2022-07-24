@@ -12,7 +12,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:GetObjectVersion"
         ],
         "Effect" : "Allow",
-        "Resource" : "/*"
+        "Resource" : "arn:aws:s3:::rawuserbucket2-iongee/*"
       },
       {
         "Sid" : "Stmt1658418947340",
@@ -21,7 +21,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:ListBucket"
         ],
         "Effect" : "Allow",
-        "Resource" : "*"
+        "Resource" : "arn:aws:s3:::rawuserbucket2-iongee"
         "Condition" : {
           "StringLike" : {
             "s3:prefix" : "*"

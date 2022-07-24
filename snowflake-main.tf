@@ -6,7 +6,7 @@ resource "snowflake_storage_integration" "integration" {
   type                      = "EXTERNAL_STAGE"
   storage_provider          = "S3"
   enabled                   = true
-  storage_allowed_locations = ["s3://ion-lakeformation-raw/"]
+  storage_allowed_locations = ["s3://rawuserbucket2-iongee/"]
   storage_aws_role_arn      = resource.aws_iam_role.snowflake_role.arn
 }
 
@@ -26,7 +26,7 @@ resource "snowflake_schema" "schema" {
 
 resource "snowflake_stage" "example_stage" {
   name                = "EXAMPLE_STAGE"
-  url                 = "s3://ion-lakeformation-raw/input/load/files"
+  url                 = "s3://rawuserbucket2-iongee/input"
   database            = snowflake_database.db.name
   schema              = snowflake_schema.schema.name
   storage_integration = snowflake_storage_integration.integration.name
