@@ -32,9 +32,6 @@ resource "aws_iam_policy" "snowflake_access" {
       {
         "Sid" : "Stmt101",
         "Effect" : "Allow",
-        "Principal" : {
-          "AWS" : "${var.snowflake_account_arn}"
-        },
         "Action" : [
           "kms:Encrypt",
           "kms:Decrypt",
