@@ -38,13 +38,12 @@ resource "snowflake_external_table" "external_table" {
   name     = "external_table"
   comment  = "an external table  that reads JSON data from staged files"
   column {
-    as   = "customer"
     name = "id"
     type = "VARIANT"
+    as = "value:c1::variant"
   }
   file_format = "TYPE = JSON"
   location = "@TF_DEMO.TEST.EXAMPLE_STAGE"
-  # location = "s3://ion-lakeformation-raw/input/load/files/path/"
 }
 
 # resource "snowflake_stage_grant" "grant_example_stage" {
