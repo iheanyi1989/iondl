@@ -26,3 +26,7 @@ output "snowflake_stage" {
 output "snowflake_stage_integration" {
   value  = snowflake_stage.example_stage.storage_integration
 }
+
+output "external_table_sqs_arn" {
+  value  = snowflake_external_table.external_table.aws_sns_topic
+}
