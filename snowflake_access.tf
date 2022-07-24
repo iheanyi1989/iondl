@@ -30,7 +30,7 @@ resource "aws_iam_policy" "snowflake_access" {
       },
 
       {
-        "Sid" : "Allow use of the key",
+        "Sid" : "Stmt101",
         "Effect" : "Allow",
         "Principal" : {
           "AWS" : "${var.snowflake_account_arn}"
