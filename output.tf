@@ -23,13 +23,10 @@ output "snowflake_stage" {
   sensitive = true
 }
 
-output "snowflake_stage_integration" {
-  value = snowflake_stage.example_stage.storage_integration
-}
+# output "snowflake_stage_integration" {
+#   value = snowflake_stage.example_stage.storage_integration
+# }
 
-output "external_table_sqs_arn" {
-  value = snowflake_external_table.external_table.aws_sns_topic
-}
 
 output "raw_bucket_arn" {
   value = aws_s3_bucket.lf-user-buckets[1].arn
