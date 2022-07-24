@@ -24,13 +24,13 @@ resource "snowflake_schema" "schema" {
   is_managed   = false
 }
 
-resource "snowflake_stage" "example_stage" {
-  name                = "TEST_STAGE"
-  url                 = "s3://rawuserbucket2-iongee/input/load"
-  database            = snowflake_database.db.name
-  schema              = snowflake_schema.schema.name
-  storage_integration = snowflake_storage_integration.integration.name
-}
+# resource "snowflake_stage" "example_stage" {
+#   name                = "TEST_STAGE"
+#   url                 = "s3://rawuserbucket2-iongee/input/load"
+#   database            = snowflake_database.db.name
+#   schema              = snowflake_schema.schema.name
+#   storage_integration = snowflake_storage_integration.integration.name
+# }
 
 # resource "snowflake_external_table" "external_table" {
 #   depends_on = [resource.snowflake_schema.schema, resource.snowflake_database.db]
