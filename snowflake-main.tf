@@ -47,6 +47,7 @@ resource "snowflake_external_table" "external_table" {
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
+  depends_on = [aws_s3_bucket.lf-user-buckets]
   bucket = aws_s3_bucket.lf-user-buckets[1].id
 
   queue {
