@@ -40,12 +40,12 @@ resource "aws_iam_role" "snowflake_role" {
       {
         "Effect" : "Allow",
         "Principal" : {
-          "AWS" : "arn:aws:iam::780703661110:user/os310000-s"
+          "AWS" : "${var.snowflake_account_arn}"
         },
         "Action" : "sts:AssumeRole",
         "Condition" : {
           "StringEquals" : {
-            "sts:ExternalId" : "RCB87966_SFCRole=2_lmDnzmpvEQrZERjYfIv9uNa7YnQ="
+            "sts:ExternalId" : "${var.snowflake_external_id}"
           }
         }
       }

@@ -18,6 +18,15 @@ variable "username" {
   type = string
 }
 
+variable "snowflake_account_arn" {
+  type = string
+}
+variable "snowflake_external_id" {
+  type = string
+}
+
+
+
 
 # Do not change the order of these default values. it will force the build to destory and rebuid
 variable "s3_bucket_names" {

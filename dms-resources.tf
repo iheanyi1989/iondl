@@ -14,7 +14,7 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   ]
 
   depends_on = [
-    resource.aws_iam_role.dms-access-role, aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole
+    resource.aws_iam_role.dms-access-role, resource.aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole
   ]
 }
 

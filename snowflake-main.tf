@@ -14,36 +14,37 @@ resource "snowflake_storage_integration" "integration" {
   storage_provider          = "S3"
   enabled                   = true
   storage_allowed_locations = ["s3://ion-lakeformation-raw/"]
-  storage_aws_role_arn      = "resource.aws_iam_role.snowflake_role.arn"
+  storage_aws_role_arn      = resource.aws_iam_role.snowflake_role.arn
 }
 
-resource "snowflake_stage" "example_stage" {
-  name                = "EXAMPLE_STAGE"
-  url                 = "s3://ion-lakeformation-raw/input/load/files"
-  database            = snowflake_database.db.name
-  schema              = "PUBLIC"
-  storage_integration = snowflake_storage_integration.integration.name
-}
 
-resource "snowflake_stage_grant" "grant_example_stage" {
-  database_name = snowflake_stage.example_stage.database
-  schema_name   = snowflake_stage.example_stage.schema
-  #   roles         = ["LOADER"]
-  #   privilege     = "OWNERSHIP"
-  #   stage_name    = snowflake_stage.example_stage.name
-}
+# resource "snowflake_stage" "example_stage" {
+#   name                = "EXAMPLE_STAGE"
+#   url                 = "s3://ion-lakeformation-raw/input/load/files"
+#   database            = snowflake_database.db.name
+#   schema              = "PUBLIC"
+#   storage_integration = snowflake_storage_integration.integration.name
+# }
 
-resource "snowflake_external_table" "external_table" {
-  database = "TF_DEMO"
-  schema   = "PUBLIC"
-  name     = "external_table"
-  comment  = "External table"
-  column {
-    as   = "customer"
-    name = "id"
-    type = "VARIANT"
-  }
-  file_format = "TYPE = JSON"
-  #location = "@EXAMPLE_STAGE/path1/"
-  location = "s3://ion-lakeformation-raw/input/load/files/path/"
-}
+# resource "snowflake_stage_grant" "grant_example_stage" {
+#   database_name = snowflake_stage.example_stage.database
+#   schema_name   = snowflake_stage.example_stage.schema
+#   #   roles         = ["LOADER"]
+#   #   privilege     = "OWNERSHIP"
+#   #   stage_name    = snowflake_stage.example_stage.name
+# }
+
+# resource "snowflake_external_table" "external_table" {
+#   database = "TF_DEMO"
+#   schema   = "PUBLIC"
+#   name     = "external_table"
+#   comment  = "External table"
+#   column {
+#     as   = "customer"
+#     name = "id"
+#     type = "VARIANT"
+#   }
+#   file_format = "TYPE = JSON"
+#   #location = "@EXAMPLE_STAGE/path1/"
+#   location = "s3://ion-lakeformation-raw/input/load/files/path/"
+# }
