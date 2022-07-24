@@ -39,10 +39,10 @@ resource "snowflake_external_table" "external_table" {
   comment  = "an external table  that reads JSON data from staged files"
   column {
     name = "id"
-    type = "VARIANT"
-    as = "value:c1::variant"
+    type = "VALUE"
+    as = "value:c1::varchar"
   }
-  file_format = "TYPE = JSON"
+  file_format = "TYPE = CSV"
   location = "@TF_DEMO.TEST.EXAMPLE_STAGE"
 }
 
