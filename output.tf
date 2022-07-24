@@ -11,24 +11,24 @@ output "storage_aws_iam_user_arn" {
 }
 
 output "snowflake_db" {
-  value  = snowflake_database.db.name
+  value = snowflake_database.db.name
 }
 
 output "snowflake_schema" {
-  value  = snowflake_schema.schema.name
+  value = snowflake_schema.schema.name
 }
 
 output "snowflake_stage" {
-  value  = snowflake_stage.example_stage
+  value     = snowflake_stage.example_stage
   sensitive = true
 }
 
 output "snowflake_stage_integration" {
-  value  = snowflake_stage.example_stage.storage_integration
+  value = snowflake_stage.example_stage.storage_integration
 }
 
 output "external_table_sqs_arn" {
-  value  = snowflake_external_table.external_table.aws_sns_topic
+  value = snowflake_external_table.external_table.aws_sns_topic
 }
 
 output "raw_bucket_arn" {

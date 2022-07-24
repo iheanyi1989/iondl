@@ -64,4 +64,36 @@ resource "aws_iam_role" "s3-service-role" {
     ]
   })
 
+  inline_policy {
+    name = "All_S3_SQS_Policy"
+    policy = jsonencode({
+
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Sid" : "VisualEditor0",
+          "Effect" : "Allow",
+          "Action" : [
+            "sqs:DeleteMessage",
+            "sqs:GetQueueUrl",
+            "sqs:ChangeMessageVisibility",
+            "sqs:ReceiveMessage",
+            "sqs:SendMessage",
+            "sqs:GetQueueAttributes",
+            "sqs:ListQueueTags",
+            "sqs:RemovePermission",
+            "sqs:ListDeadLetterSourceQueues",
+            "sqs:PurgeQueue",
+            "sqs:DeleteQueue",
+            "sqs:CreateQueue",
+            "sqs:SetQueueAttributes"
+          ],
+          "Resource" : "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
+        }
+      ]
+      }
+
+    )
+  }
+
 }
