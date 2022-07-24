@@ -26,7 +26,7 @@ resource "snowflake_schema" "schema" {
 
 resource "snowflake_stage" "example_stage" {
   name                = "TEST_STAGE"
-  url                 = "s3://rawuserbucket2-iongee/input"
+  url                 = "s3://rawuserbucket2-iongee/input/load"
   database            = snowflake_database.db.name
   schema              = snowflake_schema.schema.name
   storage_integration = snowflake_storage_integration.integration.name
