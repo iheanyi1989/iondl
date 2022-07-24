@@ -33,6 +33,7 @@ resource "snowflake_stage" "example_stage" {
 }
 
 resource "snowflake_external_table" "external_table" {
+  depends_on = [resource.snowflake_schema.schema, resource.snowflake_database.db]
   database = snowflake_database.db.name
   schema   = snowflake_schema.schema.name
   name     = "external_table"
