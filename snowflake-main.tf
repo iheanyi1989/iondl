@@ -1,11 +1,4 @@
-resource "snowflake_database" "db" {
-  name = "TF_DEMO"
-}
-resource "snowflake_warehouse" "warehouse" {
-  name           = "TF_DEMO"
-  warehouse_size = "large"
-  auto_suspend   = 60
-}
+
 
 resource "snowflake_storage_integration" "integration" {
   name                      = upper("storage")
@@ -17,14 +10,27 @@ resource "snowflake_storage_integration" "integration" {
   storage_aws_role_arn      = resource.aws_iam_role.snowflake_role.arn
 }
 
+resource "snowflake_database" "db" {
+  name = "TF_DEMO"
+   comment = "Database for Snowflake Ingestion Pipeline (SIP) project" 
+}
 
-# resource "snowflake_stage" "example_stage" {
-#   name                = "EXAMPLE_STAGE"
-#   url                 = "s3://ion-lakeformation-raw/input/load/files"
-#   database            = snowflake_database.db.name
-#   schema              = "PUBLIC"
-#   storage_integration = snowflake_storage_integration.integration.name
-# }
+resource "snowflake_schema" "schema" {    
+  database = snowflake_database.db.name
+  name     = "TEST"
+  comment  = "Schema from TEST source system"
+
+  is_transient        = false
+  is_managed          = false
+}
+
+resource "snowflake_stage" "example_stage" {
+  name                = "EXAMPLE_STAGE"
+  url                 = "s3://ion-lakeformation-raw/input/load/files"
+  database            = snowflake_database.db.name
+  schema              = snowflake_schema.schema.name
+  storage_integration = snowflake_storage_integration.integration.name
+}
 
 # resource "snowflake_stage_grant" "grant_example_stage" {
 #   database_name = snowflake_stage.example_stage.database
@@ -47,4 +53,11 @@ resource "snowflake_storage_integration" "integration" {
 #   file_format = "TYPE = JSON"
 #   #location = "@EXAMPLE_STAGE/path1/"
 #   location = "s3://ion-lakeformation-raw/input/load/files/path/"
+# }
+
+
+# resource "snowflake_warehouse" "warehouse" {
+#   name           = "TF_DEMO"
+#   warehouse_size = "large"
+#   auto_suspend   = 60
 # }
