@@ -12,7 +12,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:GetObjectVersion"
         ],
         "Effect" : "Allow",
-        "Resource" : "arn:aws:s3:::ion-lakeformation-raw/*"
+        "Resource" : "${output.raw_bucket_arn.value}/*"
       },
       {
         "Sid" : "Stmt1658418947340",
@@ -21,7 +21,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:ListBucket"
         ],
         "Effect" : "Allow",
-        "Resource" : "arn:aws:s3:::ion-lakeformation-raw",
+        "Resource" : "${output.raw_bucket_arn.value}"
         "Condition" : {
           "StringLike" : {
             "s3:prefix" : "*"

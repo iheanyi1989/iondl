@@ -53,7 +53,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     id            = "image-upload-event"
     queue_arn     = "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
     events        = ["s3:ObjectCreated:*"]
-    #filter_prefix = "images/"
+    filter_prefix = "input/"
     filter_suffix = ".gz"
   }
 
@@ -61,7 +61,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     id            = "video-upload-event"
     queue_arn     = "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
     events        = ["s3:ObjectCreated:*"]
-    #filter_prefix = "videos/"
+    filter_prefix = "athena/"
     filter_suffix = ".gz"
   }
 }
