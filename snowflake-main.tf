@@ -43,7 +43,7 @@ resource "snowflake_external_table" "external_table" {
     type = "VARIANT"
   }
   file_format = "TYPE = JSON"
-  location = "@EXAMPLE_STAGE/path1"
+  location = "@TF_DEMO.TEST.EXAMPLE_STAGE"
   # location = "s3://ion-lakeformation-raw/input/load/files/path/"
 }
 
