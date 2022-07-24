@@ -28,7 +28,7 @@ output "snowflake_stage_integration" {
 }
 
 output "external_table_sqs_arn" {
-  value  = snowflake_external_table.external_table.id
+  value  = snowflake_external_table.external_table.aws_sns_topic
 }
 
 output "raw_bucket_arn" {
