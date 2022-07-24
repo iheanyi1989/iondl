@@ -121,8 +121,13 @@ resource "aws_iam_role" "dms-access-role" {
 }
 
 resource "aws_iam_role" "dms-vpc-role" {
+  force_detach_policies = true
   assume_role_policy = data.aws_iam_policy_document.dms_assume_role.json
   name               = "dms-vpc-role"
+    managed_policy_arns = ["arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+    "arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser",
+    "arn:aws:iam::aws:policy/service-role/AmazonDMSCloudWatchLogsRole", "arn:aws:iam::aws:policy/service-role/AmazonDMSVPCManagementRole"
+  ]
 }
 
 resource "aws_iam_role_policy_attachment" "dms-vpc-role-AmazonDMSVPCManagementRole" {
