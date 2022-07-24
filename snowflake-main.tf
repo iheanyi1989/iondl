@@ -25,7 +25,7 @@ resource "snowflake_schema" "schema" {
 }
 
 resource "snowflake_stage" "example_stage" {
-  name                = "EXAMPLE_STAGE"
+  name                = "TEST_STAGE"
   url                 = "s3://rawuserbucket2-iongee/input"
   database            = snowflake_database.db.name
   schema              = snowflake_schema.schema.name
@@ -43,7 +43,7 @@ resource "snowflake_external_table" "external_table" {
     as   = "METADATA$FILENAME"
   }
   file_format = "TYPE = CSV"
-  location    = "@TF_DEMO.TEST.EXAMPLE_STAGE"
+  location    = "@TF_DEMO.TEST.TEST_STAGE"
 }
 
 # resource "aws_s3_bucket_notification" "bucket_notification" {
