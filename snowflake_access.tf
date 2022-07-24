@@ -12,7 +12,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:GetObjectVersion"
         ],
         "Effect" : "Allow",
-        "Resource" : "arn:aws:s3:::ion-lakeformation-raw/input/*"
+        "Resource" : "arn:aws:s3:::ion-lakeformation-raw/*"
       },
       {
         "Sid" : "Stmt1658418947340",
