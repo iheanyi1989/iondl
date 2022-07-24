@@ -20,6 +20,7 @@ output "snowflake_schema" {
 
 output "snowflake_stage" {
   value  = snowflake_stage.example_stage
+  sensitive = true
 }
 
 output "snowflake_stage_integration" {
