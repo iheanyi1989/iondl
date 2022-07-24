@@ -1,8 +1,8 @@
 # Create a new replication instance
 resource "aws_dms_replication_instance" "datalake_replication_instance" {
-  allocated_storage            = 20
-  apply_immediately            = true
-  auto_minor_version_upgrade   = true
+  allocated_storage          = 20
+  apply_immediately          = true
+  auto_minor_version_upgrade = true
   #kms_key_arn                  = "arn:aws:kms:us-east-1:384206995652:key/51a5dff5-c4be-4a76-9154-61eac98283f8"
   multi_az                     = false
   preferred_maintenance_window = "sun:10:30-sun:14:30"
@@ -14,7 +14,7 @@ resource "aws_dms_replication_instance" "datalake_replication_instance" {
   ]
 
   depends_on = [
-   resource.aws_iam_role.dms-access-role, aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole
+    resource.aws_iam_role.dms-access-role, aws_iam_role_policy_attachment.dms-vpc-role-AmazonDMSVPCManagementRole
   ]
 }
 
@@ -48,13 +48,13 @@ resource "aws_dms_endpoint" "source_endpoint_one" {
 #     encryption_mode                   = "SSE_KMS"
 #     server_side_encryption_kms_key_id = resource.aws_kms_key.key_for_dl_buckets.arn
 #   }
-  
+
 
 # }
 
-  # server_name =
-  # secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
-  # secrets_manager_arn = 
+# server_name =
+# secrets_manager_access_role_arn = resource.aws_iam_role.role_for_dl.arn
+# secrets_manager_arn = 
 
 
 

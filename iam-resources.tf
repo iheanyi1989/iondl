@@ -96,7 +96,7 @@ resource "aws_iam_role" "datalake-role" {
   name                  = "datalake_role"
   assume_role_policy    = data.aws_iam_policy_document.instance-assume-role-policy-dl.json
   force_detach_policies = true
-  managed_policy_arns   = ["arn:aws:iam::aws:policy/SecretsManagerReadWrite",
+  managed_policy_arns = ["arn:aws:iam::aws:policy/SecretsManagerReadWrite",
   "arn:aws:iam::aws:policy/AmazonS3FullAccess"]
 }
 
@@ -111,12 +111,12 @@ data "aws_iam_policy_document" "dms_assume_role" {
   }
 }
 resource "aws_iam_role" "dms-access-role" {
-  assume_role_policy = data.aws_iam_policy_document.dms_assume_role.json
-  name               = "dms-access-role"
+  assume_role_policy    = data.aws_iam_policy_document.dms_assume_role.json
+  name                  = "dms-access-role"
   force_detach_policies = true
   managed_policy_arns = ["arn:aws:iam::aws:policy/SecretsManagerReadWrite",
-  "arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser",
-  "arn:aws:iam::aws:policy/service-role/AmazonDMSCloudWatchLogsRole"
+    "arn:aws:iam::aws:policy/AWSKeyManagementServicePowerUser",
+    "arn:aws:iam::aws:policy/service-role/AmazonDMSCloudWatchLogsRole"
   ]
 }
 
