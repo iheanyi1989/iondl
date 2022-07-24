@@ -12,7 +12,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:GetObjectVersion"
         ],
         "Effect" : "Allow",
-        "Resource" : "${output.raw_bucket_arn.value}/*"
+        "Resource" : "/*"
       },
       {
         "Sid" : "Stmt1658418947340",
@@ -21,7 +21,7 @@ resource "aws_iam_policy" "snowflake_access" {
           "s3:ListBucket"
         ],
         "Effect" : "Allow",
-        "Resource" : "${output.raw_bucket_arn.value}"
+        "Resource" : "*"
         "Condition" : {
           "StringLike" : {
             "s3:prefix" : "*"
