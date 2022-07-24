@@ -4,6 +4,8 @@
 .terraform.lock.hcl
 
 tweetid_userid_keyword_sentiments_emotions_Argentina.csv.gz
+tweetid_userid_keyword_sentiments_emotions_Philippines.csv.gz
+
 
 # .tfstate files
 *.tfstate

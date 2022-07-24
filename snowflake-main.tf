@@ -32,6 +32,21 @@ resource "snowflake_stage" "example_stage" {
   storage_integration = snowflake_storage_integration.integration.name
 }
 
+resource "snowflake_external_table" "external_table" {
+  database = snowflake_database.db.name
+  schema   = snowflake_schema.schema.name
+  name     = "external_table"
+  comment  = "an external table  that reads JSON data from staged files"
+  column {
+    as   = "customer"
+    name = "id"
+    type = "VARIANT"
+  }
+  file_format = "TYPE = JSON"
+  #location = "@EXAMPLE_STAGE/path1/"
+  location = "s3://ion-lakeformation-raw/input/load/files/path/"
+}
+
 # resource "snowflake_stage_grant" "grant_example_stage" {
 #   database_name = snowflake_stage.example_stage.database
 #   schema_name   = snowflake_stage.example_stage.schema
@@ -40,20 +55,6 @@ resource "snowflake_stage" "example_stage" {
 #   #   stage_name    = snowflake_stage.example_stage.name
 # }
 
-# resource "snowflake_external_table" "external_table" {
-#   database = "TF_DEMO"
-#   schema   = "PUBLIC"
-#   name     = "external_table"
-#   comment  = "External table"
-#   column {
-#     as   = "customer"
-#     name = "id"
-#     type = "VARIANT"
-#   }
-#   file_format = "TYPE = JSON"
-#   #location = "@EXAMPLE_STAGE/path1/"
-#   location = "s3://ion-lakeformation-raw/input/load/files/path/"
-# }
 
 
 # resource "snowflake_warehouse" "warehouse" {
