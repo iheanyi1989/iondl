@@ -8,22 +8,13 @@ resource "snowflake_warehouse" "warehouse" {
 }
 
 resource "snowflake_storage_integration" "integration" {
-  name                      = "storage"
-  comment                   = "A storage integration."
+  name                      = upper("storage")
+  comment                   = "Storage integration used to read files from S3 staging bucket"
   type                      = "EXTERNAL_STAGE"
   storage_provider          = "S3"
   enabled                   = true
-  storage_allowed_locations = ["s3://ion-lakeformation-raw/input/"]
-  storage_aws_role_arn      = "arn:aws:iam::384206995652:role/snowflake_role"
-  #   storage_blocked_locations = [""]
-  #   storage_aws_object_acl    = "bucket-owner-full-control"
-
-  #   storage_aws_external_id  = "..."
-  #   storage_aws_iam_user_arn = "...."
-
-  # 
-
-  # azure_tenant_id
+  storage_allowed_locations = ["s3://ion-lakeformation-raw/"]
+  storage_aws_role_arn      = "resource.aws_iam_role.snowflake_role.arn"
 }
 
 resource "snowflake_stage" "example_stage" {

@@ -30,9 +30,9 @@ provider "aws" {
 }
 
 provider "snowflake" {
-  role     = "ACCOUNTADMIN"
-  username = "IONAWSINFRA"
-  account  = "RCB87966.us-east-1"
+  role     = var.role
+  username = var.username
+  account  = var.account
   password = var.password
 }
 

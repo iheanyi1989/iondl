@@ -8,6 +8,16 @@ variable "password" {
   description = "Snowflake password"
 }
 
+variable "account" {
+  type = string
+}
+variable "role" {
+  type = string
+}
+variable "username" {
+  type = string
+}
+
 
 # Do not change the order of these default values. it will force the build to destory and rebuid
 variable "s3_bucket_names" {
