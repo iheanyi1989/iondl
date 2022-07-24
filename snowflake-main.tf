@@ -47,26 +47,26 @@ resource "snowflake_external_table" "external_table" {
   location    = "@TF_DEMO.TEST.TEST_STAGE"
 }
 
-# resource "aws_s3_bucket_notification" "bucket_notification" {
-#   depends_on = [aws_s3_bucket.lf-user-buckets]
-#   bucket     = aws_s3_bucket.lf-user-buckets[1].id
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  depends_on = [aws_s3_bucket.lf-user-buckets]
+  bucket     = aws_s3_bucket.lf-user-buckets[1].id
 
-#   queue {
-#     id            = "image-upload-event"
-#     queue_arn     = "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
-#     events        = ["s3:ObjectCreated:*"]
-#     filter_prefix = "input/"
-#     filter_suffix = ".gz"
-#   }
+  queue {
+    id            = "image-upload-event"
+    queue_arn     = "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
+    events        = ["s3:ObjectCreated:*"]
+    filter_prefix = "input/"
+    filter_suffix = ".gz"
+  }
 
-#   queue {
-#     id            = "video-upload-event"
-#     queue_arn     = "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
-#     events        = ["s3:ObjectCreated:*"]
-#     filter_prefix = "athena/"
-#     filter_suffix = ".gz"
-#   }
-# }
+  queue {
+    id            = "video-upload-event"
+    queue_arn     = "arn:aws:sqs:us-east-1:780703661110:sf-snowpipe-AIDA3LRMQPQ3BKU5KZIBM-jWlr8jQs1htnSu6h-pd-cA"
+    events        = ["s3:ObjectCreated:*"]
+    filter_prefix = "athena/"
+    filter_suffix = ".gz"
+  }
+}
 
 # resource "snowflake_stage_grant" "grant_example_stage" {
 #   database_name = snowflake_stage.example_stage.database
