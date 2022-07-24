@@ -40,7 +40,7 @@ resource "snowflake_external_table" "external_table" {
   column {
     name = "id"
     type = "VALUE"
-    as = "value:c1::varchar"
+    as = "METADATA$FILENAME"
   }
   file_format = "TYPE = CSV"
   location = "@TF_DEMO.TEST.EXAMPLE_STAGE"
