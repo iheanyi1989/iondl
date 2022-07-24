@@ -18,10 +18,10 @@ output "snowflake_schema" {
   value = snowflake_schema.schema.name
 }
 
-# output "snowflake_stage" {
-#   value     = snowflake_stage.example_stage
-#   sensitive = true
-# }
+output "snowflake_stage" {
+  value     = snowflake_stage.example_stage
+  sensitive = true
+}
 
 # output "snowflake_stage_integration" {
 #   value = snowflake_stage.example_stage.storage_integration
