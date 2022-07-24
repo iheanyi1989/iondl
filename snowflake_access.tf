@@ -27,7 +27,24 @@ resource "aws_iam_policy" "snowflake_access" {
             "s3:prefix" : "*"
           }
         }
+      },
+
+      {
+        "Sid" : "Allow use of the key",
+        "Effect" : "Allow",
+        "Principal" : {
+          "AWS" : "${var.snowflake_account_arn}"
+        },
+        "Action" : [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncrypt*",
+          "kms:GenerateDataKey*",
+          "kms:DescribeKey"
+        ],
+        "Resource" : "*"
       }
+
     ]
   })
 }
