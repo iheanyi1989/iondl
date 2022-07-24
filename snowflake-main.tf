@@ -39,7 +39,7 @@ resource "snowflake_external_table" "external_table" {
   comment  = "an external table  that reads JSON data from staged files"
   column {
     name = "id"
-    type = "VALUE"
+    type = "VARIANT"
     as = "METADATA$FILENAME"
   }
   file_format = "TYPE = CSV"
