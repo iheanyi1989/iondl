@@ -1,7 +1,7 @@
 
 
 resource "snowflake_storage_integration" "integration" {
-  name                      = upper("storage")
+  name                      = upper("test")
   comment                   = "Storage integration used to read files from S3 staging bucket"
   type                      = "EXTERNAL_STAGE"
   storage_provider          = "S3"
