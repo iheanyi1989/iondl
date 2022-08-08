@@ -33,19 +33,19 @@ resource "snowflake_stage" "example_stage" {
 }
 
 resource "snowflake_external_table" "external_table" {
-  depends_on = [resource.snowflake_schema.schema, resource.snowflake_database.db]
-  database   = snowflake_database.db.name
-  schema     = snowflake_schema.schema.name
-  name       = "external_table"
-  comment    = "an external table  that reads JSON data from staged files"
-  column {
-    name = "id"
-    type = "VARCHAR"
-    as   = "METADATA$FILENAME"
-  }
-  file_format = "TYPE = CSV"
-  location    = "@TF_DEMO.TEST.TEST_STAGE"
-}
+#   depends_on = [resource.snowflake_schema.schema, resource.snowflake_database.db]
+#   database   = snowflake_database.db.name
+#   schema     = snowflake_schema.schema.name
+#   name       = "external_table"
+#   comment    = "an external table  that reads JSON data from staged files"
+#   column {
+#     name = "id"
+#     type = "VARCHAR"
+#     as   = "METADATA$FILENAME"
+#   }
+#   file_format = "TYPE = CSV"
+#   location    = "@TF_DEMO.TEST.TEST_STAGE"
+# }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
   depends_on = [aws_s3_bucket.lf-user-buckets]
