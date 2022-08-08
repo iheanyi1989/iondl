@@ -23,6 +23,11 @@ output "snowflake_stage" {
   sensitive = true
 }
 
+
+output "snowflake_external_table" {
+  value = data.snowflake_external_table.TEST_EXTERNAL_TABLE
+}
+
 # output "snowflake_stage_integration" {
 #   value = snowflake_stage.example_stage.storage_integration
 # }
