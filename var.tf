@@ -47,7 +47,7 @@ variable "snowflake_external_id" {
   
 # }
 
-data "snowflake_external_table" "TEST_EXTERNAL_TABLE" {
+data "snowflake_external_tables" "TEST_EXTERNAL_TABLE" {
     database   = snowflake_database.db.name
     schema     = snowflake_schema.schema.name
 }

@@ -25,7 +25,7 @@ output "snowflake_stage" {
 
 
 output "snowflake_external_table" {
-  value = data.snowflake_external_table.TEST_EXTERNAL_TABLE
+  value = data.snowflake_external_tables.TEST_EXTERNAL_TABLE
 }
 
 # output "snowflake_stage_integration" {
